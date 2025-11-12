@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useRef } from "react";
 import TareaForm from "../components/TareaForm";
 import TareaList from "../components/TareaList";
 import "../styles/dashboard.css";
@@ -6,7 +7,9 @@ import "../styles/dashboard.css";
 const API_URL = import.meta.env.VITE_API_URL;
 
 const Dashboard = () => {
+  const formRef = useRef();
   const [tareas, setTareas] = useState([]);
+  const [tareaEditando, setTareaEditando] = useState(null);
   const token = localStorage.getItem("token");
 
   const fetchTareas = async () => {
@@ -31,8 +34,20 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard-container">
-      <TareaForm fetchTareas={fetchTareas} />
-      <TareaList tareas={tareas} fetchTareas={fetchTareas} />
+      <TareaForm
+        ref={formRef}
+        fetchTareas={fetchTareas}
+        tareaEditando={tareaEditando}
+        setTareaEditando={setTareaEditando}
+      />
+      <TareaList
+        tareas={tareas}
+        fetchTareas={fetchTareas}
+        setTareaEditando={(tarea) => {
+          setTareaEditando(tarea);
+          formRef.current?.scrollIntoView({ behavior: "smooth" });
+        }}
+      />
     </div>
   );
 };

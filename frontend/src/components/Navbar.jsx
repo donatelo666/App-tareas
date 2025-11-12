@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/navbar.css";
+import { toast } from "react-toastify";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -7,21 +8,33 @@ export default function Navbar() {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    navigate("/login");
+    navigate("/inicio");
+    toast.success("Sesion cerrada");
   };
 
   return (
     <nav className="navbar">
-      <Link to="/">Inicio</Link>
+      <h1 className="navbar-title">App tareas xd</h1>
+      <Link to="/" className="nav-link">
+        Inicio
+      </Link>
       {!token ? (
         <>
-          <Link to="/login">Login</Link>
-          <Link to="/register">Registro</Link>
+          <Link to="/login" className="nav-link">
+            Iniciar sesion
+          </Link>
+          <Link to="/register" className="nav-link">
+            Registro
+          </Link>
         </>
       ) : (
         <>
-          <Link to="/dashboard">Dashboard</Link>
-          <button onClick={handleLogout}>Logout</button>
+          <Link to="/dashboard" className="nav-link">
+            Dashboard
+          </Link>
+          <button onClick={handleLogout} className="logout-button">
+            Cerrar sesion
+          </button>
         </>
       )}
     </nav>

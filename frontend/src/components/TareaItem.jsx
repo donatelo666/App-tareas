@@ -1,9 +1,10 @@
 import React from "react";
 import "../styles/tarea-item.css";
+import { toast } from "react-toastify";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-const TareaItem = ({ tarea, fetchTareas }) => {
+const TareaItem = ({ tarea, fetchTareas, setTareaEditando }) => {
   const token = localStorage.getItem("token");
 
   const toggleCompletada = async () => {
@@ -15,6 +16,7 @@ const TareaItem = ({ tarea, fetchTareas }) => {
       },
       body: JSON.stringify({ completada: !tarea.completada }),
     });
+    toast.success("Estado de tarea actualizado bien");
     fetchTareas();
   };
 
@@ -23,6 +25,7 @@ const TareaItem = ({ tarea, fetchTareas }) => {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` },
     });
+    toast.success("Tarea eliminada correctamente");
     fetchTareas();
   };
 
@@ -37,6 +40,8 @@ const TareaItem = ({ tarea, fetchTareas }) => {
         <button onClick={toggleCompletada}>
           {tarea.completada ? "Marcar pendiente" : "Marcar completada"}
         </button>
+        <button onClick={() => setTareaEditando(tarea)}>✏️ Editar</button>
+
         <button onClick={eliminarTarea}>Eliminar</button>
       </div>
     </div>

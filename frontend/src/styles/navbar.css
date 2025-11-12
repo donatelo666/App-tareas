@@ -1,6 +1,45 @@
 .navbar {
+  font-family: "Lemon", cursive;
+  background-color: #a6c1ee;
+  padding: 1rem 2rem;
   display: flex;
-  gap: 1rem;
-  background-color: #ad4aa0;
-  padding: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #8fb3e0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+.navbar-title {
+  font-size: 1.8rem;
+  color: #fff;
+  margin: 0;
+}
+
+.logout-button {
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  font-family: "Lemon", cursive;
+  background-color: #fdfdfd;
+  color: #4a4a4a;
+  border: 2px solid #8fb3e0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #e0e7ff;
+  color: #333;
+  border-color: #6f9dd9;
+}
+a.nav-link {
+  background-color: #a6c1ee;
+  color: white;
+  margin: 0 0.5rem;
+  font-size: 1.5rem;
+  border: 2px solid transparent;
+}
+
+a.nav-link:hover {
+  background-color: #8fb3e0;
+  border-color: #6f9dd9;
 }

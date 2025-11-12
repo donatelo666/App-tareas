@@ -1,78 +1,109 @@
-import React, { useState } from "react";
+//importacion de ref para saltos, estado y efecto , css y notificaciones
+import React, { forwardRef, useState, useEffect } from "react";
 import "../styles/tarea-form.css";
+import { toast } from "react-toastify";
 
+//uso de .env
 const API_URL = import.meta.env.VITE_API_URL;
 
-const TareaForm = ({ fetchTareas }) => {
-  const [titulo, setTitulo] = useState("");
-  const [descripcion, setDescripcion] = useState("");
-  const [prioridad, setPrioridad] = useState("media");
-  const [error, setError] = useState("");
-  const [mensaje, setMensaje] = useState("");
+//formulario con referencia de salto , definicionde tareas y edicion
+const TareaForm = forwardRef(
+  ({ fetchTareas, tareaEditando, setTareaEditando }, ref) => {
+    //estados de campos en vacio y media
+    const [titulo, setTitulo] = useState("");
+    const [descripcion, setDescripcion] = useState("");
+    const [prioridad, setPrioridad] = useState("media");
 
-  const token = localStorage.getItem("token");
+    //pone el token
+    const token = localStorage.getItem("token");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-    setMensaje("");
+    useEffect(() => {
+      if (tareaEditando) {
+        setTitulo(tareaEditando.titulo);
+        setDescripcion(tareaEditando.descripcion);
+        setPrioridad(tareaEditando.prioridad);
+      }
+    }, [tareaEditando]); //toma los datos si hay
 
-    if (!token) {
-      setError("No hay token. Inicia sesión para crear tareas.");
-      return;
-    }
+    const handleSubmit = async (e) => {
+      e.preventDefault();
 
-    try {
-      const res = await fetch(`${API_URL}/tareas`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ titulo, descripcion, prioridad }),
-      });
-
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || `Error ${res.status}`);
+      if (!token) {
+        toast.error("No hay sesión iniciada, debes registrarte antes");
+        return; //error ausencia de token
       }
 
-      setTitulo("");
-      setDescripcion("");
-      setPrioridad("media");
-      setMensaje("✅ Tarea creada correctamente");
-      fetchTareas();
-    } catch (err) {
-      setError(`❌ Error al crear tarea: ${err.message}`);
-    }
-  };
+      const url = tareaEditando
+        ? `${API_URL}/tareas/${tareaEditando.id}`
+        : `${API_URL}/tareas`; //rutas de editar o crear
 
-  return (
-    <form onSubmit={handleSubmit} className="tarea-form">
-      <input
-        type="text"
-        placeholder="Título"
-        value={titulo}
-        onChange={(e) => setTitulo(e.target.value)}
-        required
-      />
-      <input
-        type="text"
-        placeholder="Descripción"
-        value={descripcion}
-        onChange={(e) => setDescripcion(e.target.value)}
-      />
-      <select value={prioridad} onChange={(e) => setPrioridad(e.target.value)}>
-        <option value="baja">Baja</option>
-        <option value="media">Media</option>
-        <option value="alta">Alta</option>
-      </select>
-      <button type="submit">Crear tarea</button>
+      const method = tareaEditando ? "PUT" : "POST"; //selecciona
 
-      {mensaje && <p style={{ color: "green" }}>{mensaje}</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
-    </form>
-  );
-};
+      try {
+        const res = await fetch(url, {
+          method,
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, //token
+          },
+          body: JSON.stringify({ titulo, descripcion, prioridad }), //convierte a json
+        });
+
+        if (!res.ok) {
+          const data = await res.json();
+          throw new Error(data.error || `Error ${res.status}`);
+        } //error por respuesta errada
+
+        //doble notificacion
+        toast.success(
+          tareaEditando
+            ? "Tarea actualizada con exito"
+            : "Tarea creada con exito"
+        );
+        setTitulo("");
+        setDescripcion("");
+        setPrioridad("media");
+        setTareaEditando(null);
+        fetchTareas(); //devuelve datos a cero, media , null y recarga las tareas
+      } catch (err) {
+        toast.error(`❌ Error: ${err.message}`);
+      }
+    };
+
+    return (
+      //formulario con referencia, escucha de click, cambio de estado de valores
+      //placeholder, campos requeridos y un select
+      <form ref={ref} onSubmit={handleSubmit} className="tarea-form">
+        <input
+          type="text"
+          placeholder="Título"
+          value={titulo}
+          onChange={(e) => setTitulo(e.target.value)}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Descripción"
+          value={descripcion}
+          onChange={(e) => setDescripcion(e.target.value)}
+        />
+        <select
+          value={prioridad}
+          onChange={(e) => setPrioridad(e.target.value)}
+        >
+          <option value="baja">Baja</option>
+          <option value="media">Media</option>
+          <option value="alta">Alta</option>
+        </select>
+
+        <button type="submit">
+          {" "}
+          {/* doble boton dependiendo de clics de usuario*/}
+          {tareaEditando ? "Actualizar tarea" : "Crear tarea"}
+        </button>
+      </form>
+    );
+  }
+);
 
 export default TareaForm;

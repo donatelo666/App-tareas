@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/login.css";
+import { toast } from "react-toastify";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -8,7 +9,6 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -22,12 +22,16 @@ const Login = () => {
       });
 
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Error al iniciar sesión");
+      if (!res.ok) {
+        toast.error("Error al iniciar sesión");
+        throw new Error("Error al iniciar sesión");
+      }
 
       localStorage.setItem("token", data.token);
       window.location.href = "/dashboard"; // fuerza recarga y reevaluación del token
+      toast.success("Sesion iniciada");
     } catch (err) {
-      setError(`❌ ${err.message}`);
+      toast.error("Error al iniciar sesion");
     }
   };
 
