@@ -1,13 +1,17 @@
 //conexion a base de datos
 import conexion from "../config/database.js";
 
-//consulta de tareas
+//consulta de tareas por fecha y mas
 export const obtenerTareas = async (req, res) => {
   try {
     const [tareas] = await conexion.query(
-      "SELECT * FROM tareas WHERE usuario_id=?",
+      `SELECT id, titulo, descripcion, prioridad, fecha_limite, completada
+       FROM tareas
+       WHERE usuario_id = ?
+       ORDER BY fecha_limite ASC`, // ✅ ordena por fecha más próxima
       [req.usuarioId]
     );
+
     res.json(tareas);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -16,11 +20,21 @@ export const obtenerTareas = async (req, res) => {
 
 //crear tarea con query
 export const crearTarea = async (req, res) => {
-  const { titulo, descripcion, prioridad } = req.body;
+  const { titulo, descripcion, prioridad, fecha_limite } = req.body;
+  if (!titulo) {
+    return res.status(400).json({ error: "Título es obligatorio" });
+  }
+
+  if (fecha_limite && new Date(fecha_limite) < new Date()) {
+    return res
+      .status(400)
+      .json({ error: "La fecha límite no puede estar en el pasado" });
+  }
+
   try {
     await conexion.query(
-      "INSERT INTO tareas (titulo, descripcion, prioridad, usuario_id) VALUES (?, ?, ?, ?)",
-      [titulo, descripcion, prioridad || "media", req.usuarioId]
+      "INSERT INTO tareas (titulo, descripcion, prioridad, fecha_limite, usuario_id) VALUES (?, ?, ?, ?, ?)",
+      [titulo, descripcion, prioridad || "media", fecha_limite, req.usuarioId]
     );
     res.status(201).json({ mensaje: "Tarea creada" });
   } catch (err) {
@@ -30,13 +44,31 @@ export const crearTarea = async (req, res) => {
 
 //actualizar tarea
 export const actualizarTarea = async (req, res) => {
-  const { titulo, descripcion, prioridad } = req.body; //body
+  const { titulo, descripcion, prioridad, fecha_limite } = req.body; //body
   const { id } = req.params; // ID de la tarea a actualizar
+
+  if (!titulo) {
+    return res.status(400).json({ error: "Título es obligatorio" });
+  }
+
+  if (fecha_limite && new Date(fecha_limite) < new Date()) {
+    return res
+      .status(400)
+      .json({ error: "La fecha límite no puede estar en el pasado" });
+  }
+
   try {
     //query
     const [result] = await conexion.query(
-      "UPDATE tareas SET titulo=?, descripcion=?, prioridad=? WHERE id=? AND usuario_id=?",
-      [titulo, descripcion, prioridad || "media", id, req.usuarioId]
+      "UPDATE tareas SET titulo = ?, descripcion = ?, prioridad = ?, fecha_limite = ? WHERE id = ? AND usuario_id = ?",
+      [
+        titulo,
+        descripcion,
+        prioridad || "media",
+        fecha_limite,
+        id,
+        req.usuarioId,
+      ]
     );
 
     if (result.affectedRows === 0) {

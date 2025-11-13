@@ -6,20 +6,18 @@ import conexion from "../config/database.js";
 //registro
 export const register = async (req, res) => {
   const { nombre, email, password } = req.body;
-  console.log("Datos recibidos:", { nombre, email, password });
+  console.log({ nombre, email, password });
 
   try {
     const [exist] = await conexion.query(
       "SELECT * FROM usuarios WHERE email=?",
       [email]
     );
-    console.log("¿Usuario ya existe?", exist);
 
     if (exist.length)
       return res.status(400).json({ error: "Usuario ya existe" });
 
     const hash = await bcrypt.hash(password, 10);
-    console.log("Password encriptado:", hash);
 
     await conexion.query(
       "INSERT INTO usuarios (nombre, email, password) VALUES (?, ?, ?)",

@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 const API_URL = import.meta.env.VITE_API_URL;
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -28,8 +30,8 @@ const Login = () => {
       }
 
       localStorage.setItem("token", data.token);
-      window.location.href = "/dashboard"; // fuerza recarga y reevaluación del token
-      toast.success("Sesion iniciada");
+      toast.success("Sesión iniciada");
+      navigate("/dashboard");
     } catch (err) {
       toast.error("Error al iniciar sesion");
     }

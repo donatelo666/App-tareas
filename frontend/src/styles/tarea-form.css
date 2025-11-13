@@ -16,7 +16,7 @@
   border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 1rem;
-  font-family: "Lemon", cursive;
+  font-family: "Lemon";
   background-color: #fff;
   transition: border-color 0.3s ease;
 }
@@ -33,7 +33,7 @@
   border: none;
   border-radius: 8px;
   font-size: 1rem;
-  font-family: "Lemon", cursive;
+  font-family: "Lemon";
   color: white;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -46,4 +46,18 @@
 .tarea-form p {
   margin-top: 0.5rem;
   font-size: 0.95rem;
+}
+.btn-cancelar {
+  background-color: #ccc;
+  color: #333;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  font-family: "Lemon";
+}
+
+.btn-cancelar:hover {
+  background-color: #bbb;
 }

@@ -39,7 +39,7 @@
 .task-priority {
   font-size: 0.85rem;
   color: #888;
-  font-style: italic;
+  font-style: "Lemon";
 }
 
 .task-actions {
@@ -61,4 +61,29 @@
 
 .task-actions button:hover {
   background-color: #8fb3e0;
+}
+
+.fecha-limite {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.vencida {
+  border-left: 4px solid red;
+  background-color: #ffe5e5;
+}
+
+.por-vencer {
+  border-left: 4px solid orange;
+  background-color: #fff4e0;
+}
+.tarea {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.tarea.visible {
+  opacity: 1;
+  transform: translateY(0);
 }

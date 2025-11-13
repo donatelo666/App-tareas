@@ -15,7 +15,7 @@ export const verificarToken = (req, res, next) => {
     req.usuarioId = decoded.id;
     next();
   } catch (err) {
-    console.error("❌ Token inválido:", err.message);
+    console.error("❌ Token inválido: inicia sesion nuevamente", err.message);
     res.status(403).json({ error: "Token inválido" });
   }
 };

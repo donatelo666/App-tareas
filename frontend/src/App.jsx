@@ -3,22 +3,25 @@ import Navbar from "./components/Navbar";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Home from "./pages/Home"; // si tienes una página de inicio
+import Home from "./pages/Home";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function App() {
+// Componente para proteger rutas
+const RutaPrivada = ({ children }) => {
   const token = localStorage.getItem("token");
+  return token ? children : <Navigate to="/login" />;
+};
 
+function App() {
   return (
-    <BrowserRouter>
+    <>
       <ToastContainer
         position="top-center"
         autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
-        rtl={false}
         pauseOnFocusLoss
         draggable
         pauseOnHover
@@ -26,6 +29,7 @@ function App() {
       />
 
       <Navbar />
+
       <div className="App">
         <Routes>
           <Route path="/" element={<Home />} />
@@ -33,12 +37,16 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route
             path="/dashboard"
-            element={token ? <Dashboard /> : <Navigate to="/login" />}
+            element={
+              <RutaPrivada>
+                <Dashboard />
+              </RutaPrivada>
+            }
           />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>
-    </BrowserRouter>
+    </>
   );
 }
 
