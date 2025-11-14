@@ -1,0 +1,56 @@
+.lista-subtareas li.completada {
+  text-decoration: line-through;
+  color: var(--subtarea-completada-text);
+  background-color: var(--subtarea-completada-bg);
+  transition: all 0.3s ease;
+}
+
+.lista-subtareas li {
+  padding: 8px;
+  border-bottom: 1px solid var(--subtarea-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  transform: translateY(-5px);
+  animation: aparecer 0.3s forwards;
+}
+
+.subtareas form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.subtareas input[type="text"] {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid var(--input-border);
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: "Lemon", sans-serif;
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.subtareas button {
+  padding: 8px 16px;
+  background-color: var(--button-bg);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.subtareas button:hover {
+  background-color: var(--button-hover);
+}
+
+@keyframes aparecer {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

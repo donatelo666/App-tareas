@@ -1,9 +1,9 @@
 .task-item {
-  background-color: #eef2f7;
+  background-color: var(--task-bg);
   border-radius: 10px;
   padding: 1rem;
   margin-bottom: 1rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--task-shadow);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -11,13 +11,13 @@
 }
 
 .task-item.completada {
-  background-color: #dce5dc;
+  background-color: var(--task-completed-bg);
 }
 
 .task-item.completada .task-title,
 .task-item.completada .task-description {
   text-decoration: line-through;
-  color: #888;
+  color: var(--task-completed-text);
 }
 
 .task-content {
@@ -28,18 +28,20 @@
 
 .task-title {
   font-size: 1.2rem;
-  color: #333;
+  color: var(--task-title);
+  transition: color 0.3s ease;
 }
 
 .task-description {
   font-size: 0.95rem;
-  color: #666;
+  color: var(--task-description);
+  transition: color 0.3s ease;
 }
 
 .task-priority {
   font-size: 0.85rem;
-  color: #888;
-  font-style: "Lemon";
+  color: var(--task-priority);
+  font-family: "Lemon", sans-serif;
 }
 
 .task-actions {
@@ -53,30 +55,31 @@
   font-size: 0.9rem;
   border: none;
   border-radius: 6px;
-  background-color: #a6c1ee;
+  background-color: var(--button-bg);
   color: white;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .task-actions button:hover {
-  background-color: #8fb3e0;
+  background-color: var(--button-hover);
 }
 
 .fecha-limite {
   font-size: 0.9rem;
-  color: #666;
+  color: var(--task-deadline);
 }
 
 .vencida {
   border-left: 4px solid red;
-  background-color: #ffe5e5;
+  background-color: var(--task-overdue-bg);
 }
 
 .por-vencer {
   border-left: 4px solid orange;
-  background-color: #fff4e0;
+  background-color: var(--task-warning-bg);
 }
+
 .tarea {
   opacity: 0;
   transform: translateY(10px);
@@ -86,4 +89,52 @@
 .tarea.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal {
+  background: var(--modal-bg);
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  text-align: center;
+  box-shadow: var(--modal-shadow);
+  transition: background-color 0.3s ease;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 15px;
+}
+
+.modal-buttons button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.modal-buttons button:first-child {
+  background-color: var(--modal-delete-bg);
+  font-size: medium;
+  color: white;
+}
+
+.modal-buttons button:last-child {
+  background-color: var(--modal-cancel-bg);
+  font-size: medium;
+  color: var(--text-color);
 }

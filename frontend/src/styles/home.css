@@ -1,25 +1,28 @@
 .home-container {
   text-align: center;
   padding: 2rem;
-  background-color: #aa76cc;
+  background-color: var(--bg-home);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  transition: background-color 0.3s ease;
 }
 
 .home-container h1 {
   font-size: 2.5rem;
-  font-family: "Lemon";
+  font-family: "Lemon", sans-serif;
   margin-bottom: 1rem;
-  color: #333;
+  color: var(--text-main);
+  transition: color 0.3s ease;
 }
 
 .home-container p {
   font-size: 1.5rem;
   margin-bottom: 2rem;
-  color: #f7f2f2;
+  color: var(--text-sub);
+  transition: color 0.3s ease;
 }
 
 .button-group {
@@ -32,13 +35,13 @@
   font-size: 1.2rem;
   border: none;
   border-radius: 5px;
-  background-color: #0077cc;
+  background-color: var(--button-bg);
   color: white;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  font-family: "Lemon";
+  font-family: "Lemon", sans-serif;
 }
 
 .button-group button:hover {
-  background-color: #005fa3;
+  background-color: var(--button-hover);
 }

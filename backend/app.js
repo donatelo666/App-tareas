@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import authRoutes from "./routes/auth.js";
 import tareasRoutes from "./routes/tareas.js";
 import cors from "cors";
+import rutasSubtareas from "./routes/subtareas.js";
 
 dotenv.config();
 const app = express();
@@ -19,6 +20,7 @@ app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/tareas", tareasRoutes);
+app.use("/api", rutasSubtareas);
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => console.log(`Servidor corriendo en puerto ${PORT}`));

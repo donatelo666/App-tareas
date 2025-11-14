@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Dashboard from "./pages/Dashboard";
@@ -14,6 +15,11 @@ const RutaPrivada = ({ children }) => {
 };
 
 function App() {
+  const [modoOscuro, setModoOscuro] = useState(false);
+
+  useEffect(() => {
+    document.body.classList.toggle("dark-mode", modoOscuro);
+  }, [modoOscuro]);
   return (
     <>
       <ToastContainer
@@ -31,6 +37,12 @@ function App() {
       <Navbar />
 
       <div className="App">
+        <button
+          onClick={() => setModoOscuro(!modoOscuro)}
+          className="toggle-mode"
+        >
+          {modoOscuro ? "Modo claro" : "Modo oscuro"}
+        </button>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />

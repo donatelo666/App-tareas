@@ -1,45 +1,51 @@
 .navbar {
-  font-family: "Lemon", cursive;
-  background-color: #a6c1ee;
+  font-family: "Lemon";
+  background-color: var(--navbar-bg);
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid #8fb3e0;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  border-bottom: 2px solid var(--navbar-border);
+  box-shadow: var(--navbar-shadow);
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
+
 .navbar-title {
   font-size: 1.8rem;
-  color: #fff;
+  color: var(--navbar-title);
   margin: 0;
+  transition: color 0.3s ease;
 }
 
 .logout-button {
   padding: 0.6rem 1rem;
   font-size: 1rem;
-  font-family: "Lemon", cursive;
-  background-color: #fdfdfd;
-  color: #4a4a4a;
-  border: 2px solid #8fb3e0;
+  font-family: "Lemon";
+  background-color: var(--logout-bg);
+  color: var(--logout-text);
+  border: 2px solid var(--logout-border);
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .logout-button:hover {
-  background-color: #e0e7ff;
-  color: #333;
-  border-color: #6f9dd9;
+  background-color: var(--logout-hover-bg);
+  color: var(--logout-hover-text);
+  border-color: var(--logout-hover-border);
 }
+
 a.nav-link {
-  background-color: #a6c1ee;
-  color: white;
+  background-color: var(--navbar-bg);
+  color: var(--nav-link-text);
   margin: 0 0.5rem;
   font-size: 1.5rem;
   border: 2px solid transparent;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 a.nav-link:hover {
-  background-color: #8fb3e0;
-  border-color: #6f9dd9;
+  background-color: var(--nav-link-hover-bg);
+  border-color: var(--nav-link-hover-border);
 }

@@ -1,63 +1,70 @@
 .tarea-form {
-  background-color: #f3f6f9;
+  background-color: var(--card-bg);
   padding: 2rem;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--card-shadow);
   max-width: 500px;
   margin: 2rem auto;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .tarea-form input,
 .tarea-form select {
   padding: 0.75rem;
-  border: 1px solid #ccc;
+  border: 1px solid var(--input-border);
   border-radius: 8px;
   font-size: 1rem;
-  font-family: "Lemon";
-  background-color: #fff;
-  transition: border-color 0.3s ease;
+  font-family: "Lemon", sans-serif;
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  transition: border-color 0.3s ease, background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 .tarea-form input:focus,
 .tarea-form select:focus {
-  border-color: #a6c1ee;
+  border-color: var(--focus-border);
   outline: none;
 }
 
 .tarea-form button {
   padding: 0.75rem;
-  background-color: #a6c1ee;
+  background-color: var(--button-bg);
   border: none;
   border-radius: 8px;
   font-size: 1rem;
-  font-family: "Lemon";
+  font-family: "Lemon", sans-serif;
   color: white;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .tarea-form button:hover {
-  background-color: #8fb3e0;
+  background-color: var(--button-hover);
 }
 
 .tarea-form p {
   margin-top: 0.5rem;
   font-size: 0.95rem;
+  color: var(--text-color);
+  transition: color 0.3s ease;
 }
+
 .btn-cancelar {
-  background-color: #ccc;
-  color: #333;
+  background-color: var(--cancel-bg);
+  color: var(--cancel-text);
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 6px;
   margin-top: 0.5rem;
   cursor: pointer;
-  font-family: "Lemon";
+  font-family: "Lemon", sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .btn-cancelar:hover {
-  background-color: #bbb;
+  background-color: var(--cancel-hover-bg);
 }

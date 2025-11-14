@@ -2,22 +2,24 @@
   max-width: 600px;
   margin: 2rem auto;
   padding: 1rem;
-  background-color: #ffffff;
+  background-color: var(--card-bg);
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--card-shadow);
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .mensaje-vacio {
   text-align: center;
   padding: 2rem;
   font-size: 1.2rem;
-  color: #888;
-  background-color: #f9f9f9;
+  color: var(--empty-text);
+  background-color: var(--empty-bg);
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  font-family: "Lemon", sans-serif; /* si estás usando Lemon */
+  box-shadow: var(--empty-shadow);
+  font-family: "Lemon", sans-serif;
   margin-top: 2rem;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }

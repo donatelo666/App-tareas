@@ -1,8 +1,170 @@
 @import url("https://fonts.googleapis.com/css2?family=Lemon:wght@400;700&display=swap");
 
+:root {
+  --bg-color: #ffffff;
+  --card-bg: #f3f6f9;
+  --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --text-color: #222;
+  --input-bg: #f5f5f5;
+  --input-border: #ccc;
+  --accent-color: #4caf50;
+  --accent-gradient: linear-gradient(to right, #f0f0f0, #e8e8e8);
+  --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --bg-home: #aa76cc;
+  --text-main: #333;
+  --text-sub: #f7f2f2;
+  --button-bg: #0077cc;
+  --button-hover: #005fa3;
+  --navbar-bg: #a6c1ee;
+  --navbar-border: #8fb3e0;
+  --navbar-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  --navbar-title: #ffffff;
+
+  --logout-bg: #fdfdfd;
+  --logout-text: #4a4a4a;
+  --logout-border: #8fb3e0;
+  --logout-hover-bg: #e0e7ff;
+  --logout-hover-text: #333;
+  --logout-hover-border: #6f9dd9;
+
+  --nav-link-text: #ffffff;
+  --nav-link-hover-bg: #8fb3e0;
+  --nav-link-hover-border: #6f9dd9;
+  --subtarea-completada-text: #888;
+  --subtarea-completada-bg: #f0f0f0;
+  --subtarea-border: #ddd;
+  --focus-border: #a6c1ee;
+  --cancel-bg: #ccc;
+  --cancel-text: #333;
+  --cancel-hover-bg: #bbb;
+  --task-bg: #eef2f7;
+  --task-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  --task-completed-bg: #dce5dc;
+  --task-completed-text: #888;
+  --task-title: #333;
+  --task-description: #666;
+  --task-priority: #888;
+  --task-deadline: #666;
+  --task-overdue-bg: #ffe5e5;
+  --task-warning-bg: #fff4e0;
+  --modal-bg: #ffffff;
+  --modal-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  --modal-delete-bg: #e53935;
+  --modal-cancel-bg: #ccc;
+  --empty-bg: #f9f9f9;
+  --empty-text: #888;
+  --empty-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.dark-mode {
+  --subtarea-completada-text: #aaa;
+  --subtarea-completada-bg: #2a2a2a;
+  --subtarea-border: #555;
+  --bg-color: #121212;
+  --text-color: #e0e0e0;
+  --input-bg: #1e1e1e;
+  --input-border: #444;
+  --card-bg: #1e1e2e;
+  --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --accent-color: #81c784;
+  --accent-gradient: linear-gradient(to right, #2a2a2a, #1e1e1e);
+  --shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  --bg-home: #3a1f4d;
+  --text-main: #e0e0e0;
+  --text-sub: #cfcfcf;
+  --button-bg: #4a90e2;
+  --button-hover: #357ab8;
+  --navbar-bg: #2a3550;
+  --navbar-border: #4a5e8a;
+  --navbar-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  --navbar-title: #f0f0f0;
+
+  --logout-bg: #1e1e2e;
+  --logout-text: #e0e0e0;
+  --logout-border: #4a5e8a;
+  --logout-hover-bg: #35446a;
+  --logout-hover-text: #ffffff;
+  --logout-hover-border: #6f9dd9;
+
+  --nav-link-text: #ffffff;
+  --nav-link-hover-bg: #4a5e8a;
+  --nav-link-hover-border: #6f9dd9;
+  --focus-border: #6f9dd9;
+  --cancel-bg: #444;
+  --cancel-text: #ddd;
+  --cancel-hover-bg: #555;
+  --task-bg: #2a2f3a;
+  --task-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  --task-completed-bg: #3a4a3a;
+  --task-completed-text: #aaa;
+  --task-title: #f0f0f0;
+  --task-description: #ccc;
+  --task-priority: #aaa;
+  --task-deadline: #bbb;
+  --task-overdue-bg: #5a2a2a;
+  --task-warning-bg: #4a3a1e;
+  --modal-bg: #1e1e2e;
+  --modal-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+  --modal-delete-bg: #d32f2f;
+  --modal-cancel-bg: #444;
+  --empty-bg: #2a2a3a;
+  --empty-text: #aaa;
+  --empty-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
 body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
   font-family: "Lemon";
-  background-color: #50b16d;
-  margin: 0;
-  padding: 0;
+}
+
+input,
+textarea,
+select {
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  border: 1px solid var(--input-border);
+}
+
+button {
+  background-color: var(--button-bg);
+  color: white;
+  border: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+button:hover {
+  background-color: var(--button-hover);
+}
+input,
+textarea,
+select,
+button {
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.toggle-mode {
+  z-index: 1000;
+  position: absolute;
+  background-color: var(--button-bg);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  top: 6rem;
+  left: 4rem;
+  border-radius: 8px;
+  font-family: "Lemon", sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.toggle-mode:hover {
+  background-color: var(--button-hover);
+  transform: scale(1.05);
+}
+
+.toggle-mode:active {
+  transform: scale(0.95);
 }
