@@ -6,7 +6,7 @@ export default function Home() {
 
   return (
     <div className="home-container">
-      <h1>Bienvenido a la App de Tareas</h1>
+      <h1>Bienvenido al gestor de Tareas</h1>
       <p>
         Organiza tus pendientes, gestiona prioridades y mantente productivo.
       </p>

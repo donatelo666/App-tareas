@@ -14,7 +14,7 @@ export default function Navbar() {
 
   return (
     <nav className="navbar">
-      <h1 className="navbar-title">App tareas xd</h1>
+      <h1 className="navbar-title">Gestor de tareas</h1>
       <Link to="/" className="nav-link">
         Inicio
       </Link>
