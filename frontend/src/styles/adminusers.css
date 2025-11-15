@@ -1,0 +1,23 @@
+.admin-users {
+  background-color: var(--card-bg);
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: var(--card-shadow);
+}
+
+.admin-users table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-users th,
+.admin-users td {
+  padding: 0.5rem;
+  border-bottom: 1px solid var(--input-border);
+  text-align: left;
+}
+
+.admin-users th {
+  background-color: var(--navbar-bg);
+  color: var(--navbar-title);
+}

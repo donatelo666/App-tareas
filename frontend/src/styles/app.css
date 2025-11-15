@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Lemon:wght@400;700&display=swap");
 
 :root {
-  --bg-color: #ffffff;
+  --bg-color: #a974be;
   --card-bg: #f3f6f9;
   --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   --text-color: #222;
@@ -60,7 +60,7 @@
   --subtarea-completada-text: #aaa;
   --subtarea-completada-bg: #2a2a2a;
   --subtarea-border: #555;
-  --bg-color: #121212;
+  --bg-color: #59136e;
   --text-color: #e0e0e0;
   --input-bg: #1e1e1e;
   --input-border: #444;

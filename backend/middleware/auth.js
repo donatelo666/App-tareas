@@ -12,8 +12,9 @@ export const verificarToken = (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    req.usuarioId = decoded.id;
-    next();
+    req.user = decoded;
+    // decoded contiene { id, nombre, email, rol }
+    next(); //  continuar al siguiente middleware/controlador
   } catch (err) {
     console.error("❌ Token inválido: inicia sesion nuevamente", err.message);
     res.status(403).json({ error: "Token inválido" });

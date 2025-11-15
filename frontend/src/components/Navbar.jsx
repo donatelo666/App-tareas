@@ -12,6 +12,8 @@ export default function Navbar() {
     toast.success("Sesion cerrada");
   };
 
+  const user = JSON.parse(localStorage.getItem("user")); //toda la info que llega del login
+
   return (
     <nav className="navbar">
       <h1 className="navbar-title">Gestor de tareas</h1>
@@ -32,6 +34,11 @@ export default function Navbar() {
           <Link to="/dashboard" className="nav-link">
             Dashboard
           </Link>
+
+          {/* Mostrar solo si el usuario es admin */}
+          {user?.rol === "admin" && (
+            <Link to="/admin/usuarios">Ver Usuarios</Link>
+          )}
           <button onClick={handleLogout} className="logout-button">
             Cerrar sesion
           </button>

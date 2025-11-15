@@ -4,12 +4,13 @@ import conexion from "../config/database.js";
 //consulta de tareas por fecha y mas
 export const obtenerTareas = async (req, res) => {
   try {
+    const userId = req.user.id; // viene del token
     const [tareas] = await conexion.query(
       `SELECT id, titulo, descripcion, prioridad, fecha_limite, completada
        FROM tareas
        WHERE usuario_id = ?
        ORDER BY fecha_limite ASC`, // ✅ ordena por fecha más próxima
-      [req.usuarioId]
+      [userId]
     );
 
     res.json(tareas);
@@ -20,21 +21,18 @@ export const obtenerTareas = async (req, res) => {
 
 //crear tarea con query
 export const crearTarea = async (req, res) => {
+  const userId = req.user.id; // viene del token
+
   const { titulo, descripcion, prioridad, fecha_limite } = req.body;
+
   if (!titulo) {
     return res.status(400).json({ error: "Título es obligatorio" });
-  }
-
-  if (fecha_limite && new Date(fecha_limite) < new Date()) {
-    return res
-      .status(400)
-      .json({ error: "La fecha límite no puede estar en el pasado" });
   }
 
   try {
     await conexion.query(
       "INSERT INTO tareas (titulo, descripcion, prioridad, fecha_limite, usuario_id) VALUES (?, ?, ?, ?, ?)",
-      [titulo, descripcion, prioridad || "media", fecha_limite, req.usuarioId]
+      [titulo, descripcion, prioridad || "media", fecha_limite, userId]
     );
     res.status(201).json({ mensaje: "Tarea creada" });
   } catch (err) {
@@ -46,29 +44,17 @@ export const crearTarea = async (req, res) => {
 export const actualizarTarea = async (req, res) => {
   const { titulo, descripcion, prioridad, fecha_limite } = req.body; //body
   const { id } = req.params; // ID de la tarea a actualizar
+  const userId = req.user.id; // viene del token
 
   if (!titulo) {
     return res.status(400).json({ error: "Título es obligatorio" });
-  }
-
-  if (fecha_limite && new Date(fecha_limite) < new Date()) {
-    return res
-      .status(400)
-      .json({ error: "La fecha límite no puede estar en el pasado" });
   }
 
   try {
     //query
     const [result] = await conexion.query(
       "UPDATE tareas SET titulo = ?, descripcion = ?, prioridad = ?, fecha_limite = ? WHERE id = ? AND usuario_id = ?",
-      [
-        titulo,
-        descripcion,
-        prioridad || "media",
-        fecha_limite,
-        id,
-        req.usuarioId,
-      ]
+      [titulo, descripcion, prioridad || "media", fecha_limite, id, userId]
     );
 
     if (result.affectedRows === 0) {
@@ -84,11 +70,13 @@ export const actualizarTarea = async (req, res) => {
 // Eliminar tarea
 export const eliminarTarea = async (req, res) => {
   const { id } = req.params;
+  const userId = req.user.id; // viene del token
+
   try {
     //consulta con query del id con usuario_id correspondiente
     const [result] = await conexion.query(
       "DELETE FROM tareas WHERE id=? AND usuario_id=?",
-      [id, req.usuarioId]
+      [id, userId]
     );
 
     if (result.affectedRows === 0) {
@@ -105,10 +93,12 @@ export const eliminarTarea = async (req, res) => {
 export const toggleCompletada = async (req, res) => {
   const { id } = req.params;
   const { completada } = req.body; // true o false
+  const userId = req.user.id; // viene del token
+
   try {
     const [result] = await conexion.query(
       "UPDATE tareas SET completada=? WHERE id=? AND usuario_id=?",
-      [completada ? 1 : 0, id, req.usuarioId]
+      [completada ? 1 : 0, id, userId]
     );
 
     if (result.affectedRows === 0) {

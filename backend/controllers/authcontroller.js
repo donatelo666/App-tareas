@@ -31,26 +31,41 @@ export const register = async (req, res) => {
   }
 };
 
-//login
+//ruta login con seguridad  mas datos de usuario para usar en el login
 export const login = async (req, res) => {
   const { email, password } = req.body;
   try {
-    //verificacion por email
-    const [user] = await conexion.query(
+    // verificación por email
+    const [rows] = await conexion.query(
       "SELECT * FROM usuarios WHERE email=?",
       [email]
     );
-    if (!user.length)
+
+    if (!rows.length)
       return res.status(400).json({ error: "Usuario no encontrado" });
 
-    //comparacion de contraseña
-    const valid = await bcrypt.compare(password, user[0].password);
+    const user = rows[0]; // aquí ya tienes el objeto usuario
+
+    // comparación de contraseña
+    const valid = await bcrypt.compare(password, user.password);
     if (!valid) return res.status(400).json({ error: "Contraseña incorrecta" });
 
-    const token = jwt.sign({ id: user[0].id }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
+    // generar token con datos del usuario
+    const token = jwt.sign(
+      { id: user.id, nombre: user.nombre, email: user.email, rol: user.rol },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+
+    res.json({
+      token,
+      user: {
+        id: user.id,
+        nombre: user.nombre,
+        email: user.email,
+        rol: user.rol,
+      },
     });
-    res.json({ token }); //pone el token
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

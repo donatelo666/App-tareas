@@ -10,6 +10,7 @@ const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const [error, setError] = useState("");
 
   const handleLogin = async (e) => {
@@ -30,6 +31,7 @@ const Login = () => {
       }
 
       localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user)); // aquí guardas el rol
       toast.success("Sesión iniciada");
       navigate("/dashboard");
     } catch (err) {
