@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Adminusers from "./components/Adminusers";
+import AdminTasks from "./components/Admintasks";
 
 // Componente para proteger rutas
 const RutaPrivada = ({ children }) => {
@@ -57,6 +58,8 @@ function App() {
             }
           />
           <Route path="/admin/usuarios" element={<Adminusers />} />
+          <Route path="/admin/tareas" element={<AdminTasks />} />
+
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>

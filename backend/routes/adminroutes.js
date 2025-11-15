@@ -1,10 +1,22 @@
 //rutas de las tareas con express, verificar token
 import express from "express";
 import { verUsuarios } from "../controllers/admincontroller.js";
+import {
+  editarUsuario,
+  eliminarUsuario,
+} from "../controllers/admincontroller.js";
+import { verTareas } from "../controllers/admincontroller.js";
+import { editarTarea } from "../controllers/admincontroller.js";
+import { eliminarTarea } from "../controllers/admincontroller.js";
 import { verificarToken } from "../middleware/auth.js";
 import { isAdmin } from "../middleware/is-admin.js";
 
 const router = express.Router();
-router.get("/usuarios", verificarToken, isAdmin, verUsuarios);
+router.get("/admin/usuarios", verificarToken, isAdmin, verUsuarios);
+router.put("/admin/usuarios/:id", verificarToken, isAdmin, editarUsuario);
+router.delete("/admin/usuarios/:id", verificarToken, isAdmin, eliminarUsuario);
+router.get("/admin/tareas", verificarToken, isAdmin, verTareas);
+router.put("/admin/tareas/:id", verificarToken, isAdmin, editarTarea);
+router.delete("/admin/tareas/:id", verificarToken, isAdmin, eliminarTarea);
 
 export default router;

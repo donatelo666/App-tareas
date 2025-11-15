@@ -14,9 +14,7 @@ const TareaForm = forwardRef(
     const [descripcion, setDescripcion] = useState("");
     const [prioridad, setPrioridad] = useState("media");
     const [fecha_limite, setFechaLimite] = useState("");
-    const fechaFormateada = fecha_limite
-      ? new Date(fecha_limite).toISOString().split("T")[0]
-      : "";
+    const fechaFormateada = fecha_limite || "";
 
     const validarFormulario = () => {
       if (!titulo.trim()) {
@@ -24,10 +22,14 @@ const TareaForm = forwardRef(
         return false;
       }
 
-      if (fecha_limite && new Date(fecha_limite) < new Date()) {
-        toast.error("La fecha límite no puede estar en el pasado");
-        return false;
+      if (fecha_limite) {
+        const hoyStr = new Date().toLocaleDateString("en-CA"); // "YYYY-MM-DD" local
+        if (fecha_limite < hoyStr) {
+          toast.error("La fecha límite no puede estar en el pasado");
+          return false;
+        }
       }
+
       return true;
     };
 

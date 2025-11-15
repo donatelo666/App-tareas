@@ -39,6 +39,9 @@ export default function Navbar() {
           {user?.rol === "admin" && (
             <Link to="/admin/usuarios">Ver Usuarios</Link>
           )}
+
+          {/* Mostrar solo si el usuario es admin */}
+          {user?.rol === "admin" && <Link to="/admin/tareas">Ver Tareas</Link>}
           <button onClick={handleLogout} className="logout-button">
             Cerrar sesion
           </button>

@@ -25,8 +25,18 @@ export const crearTarea = async (req, res) => {
 
   const { titulo, descripcion, prioridad, fecha_limite } = req.body;
 
+  // 4. Validar que no esté en el pasado
+  const hoy = new Date();
+  const hoyStr = hoy.toLocaleDateString("en-CA"); // YYYY-MM-DD local
+
   if (!titulo) {
     return res.status(400).json({ error: "Título es obligatorio" });
+  }
+
+  if (fecha_limite < hoyStr) {
+    return res
+      .status(400)
+      .json({ error: "La fecha límite no puede estar en el pasado" });
   }
 
   try {
@@ -45,9 +55,18 @@ export const actualizarTarea = async (req, res) => {
   const { titulo, descripcion, prioridad, fecha_limite } = req.body; //body
   const { id } = req.params; // ID de la tarea a actualizar
   const userId = req.user.id; // viene del token
+  // 4. Validar que no esté en el pasado
+  const hoy = new Date();
+  const hoyStr = hoy.toLocaleDateString("en-CA"); // YYYY-MM-DD local
 
   if (!titulo) {
     return res.status(400).json({ error: "Título es obligatorio" });
+  }
+
+  if (fecha_limite < hoyStr) {
+    return res
+      .status(400)
+      .json({ error: "La fecha límite no puede estar en el pasado" });
   }
 
   try {

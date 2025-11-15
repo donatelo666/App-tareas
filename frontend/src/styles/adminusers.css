@@ -1,23 +1,151 @@
-.admin-users {
-  background-color: var(--card-bg);
+/* Contenedor general */
+.usuarios-container {
+  background-color: #1e1e2f; /* fondo oscuro */
   padding: 1rem;
   border-radius: 8px;
-  box-shadow: var(--card-shadow);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  color: #e0e0e6; /* texto claro */
+  font-family: "Lemon", sans-serif;
 }
 
-.admin-users table {
+/* Título */
+.usuarios-container h2 {
+  color: #6c63ff; /* violeta suave */
+  margin-bottom: 1rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Tabla */
+.usuarios-table {
   width: 100%;
   border-collapse: collapse;
+  color: #e0e0e6;
 }
 
-.admin-users th,
-.admin-users td {
-  padding: 0.5rem;
-  border-bottom: 1px solid var(--input-border);
+/* Encabezados */
+.usuarios-table th {
+  background-color: #2a2a3d;
+  color: #6c63ff;
   text-align: left;
+  padding: 0.75rem;
+  border-bottom: 2px solid #3a3a4d;
+  font-weight: 600;
 }
 
-.admin-users th {
-  background-color: var(--navbar-bg);
-  color: var(--navbar-title);
+/* Filas */
+.usuarios-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #3a3a4d;
+}
+
+/* Alternar colores de filas */
+.usuarios-table tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+/* Hover fila */
+.usuarios-table tr:hover {
+  background-color: rgba(108, 99, 255, 0.15);
+  transition: background-color 0.3s ease;
+}
+.usuarios-table .btn {
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  border: none;
+  margin-right: 0.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.usuarios-table .btn-edit {
+  background-color: #6c63ff;
+  color: #fff;
+}
+
+.usuarios-table .btn-edit:hover {
+  background-color: #857dff;
+}
+
+.usuarios-table .btn-delete {
+  background-color: #ff6b6b;
+  color: #fff;
+}
+
+.usuarios-table .btn-delete:hover {
+  background-color: #ff8787;
+}
+.editar-usuario-form {
+  background-color: #2a2a3d; /* superficie oscura */
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  color: #e0e0e6;
+  font-family: "Lemon", sans-serif;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.editar-usuario-form h3 {
+  color: #6c63ff; /* violeta suave */
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.editar-usuario-form label {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.editar-usuario-form input,
+.editar-usuario-form select {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.25rem;
+  border-radius: 4px;
+  border: 1px solid #3a3a4d;
+  background-color: #1e1e2f;
+  color: #e0e0e6;
+  font-size: 0.9rem;
+}
+
+.editar-usuario-form input:focus,
+.editar-usuario-form select:focus {
+  outline: none;
+  border-color: #6c63ff;
+  box-shadow: 0 0 4px rgba(108, 99, 255, 0.6);
+}
+
+.form-actions {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.5rem;
+}
+/* Botones reutilizan estilos de la tabla */
+.btn {
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn-edit {
+  background-color: #6c63ff;
+  color: #fff;
+}
+
+.btn-edit:hover {
+  background-color: #857dff;
+}
+
+.btn-delete {
+  background-color: #ff6b6b;
+  color: #fff;
+}
+
+.btn-delete:hover {
+  background-color: #ff8787;
 }
