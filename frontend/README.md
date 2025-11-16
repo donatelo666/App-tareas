@@ -124,20 +124,20 @@ Tabla estilizada y cards centrados
 
 # Home
 
-![Home](./frontend/public/demo/cap1.jpg)
+![Home](./public/demo/cap1.jpg)
 
 # dashboard y crear
 
-![dashboard usuario](./frontend/public/demo/cap2.jpg)
+![dashboard usuario](./public/demo/cap2.jpg)
 
 # Gráficos
 
-![Gráficos](./frontend/public/demo/cap3.jpg)
+![Gráficos](./public/demo/cap3.jpg)
 
 # panel admin
 
-![ver tareas](./frontend/public/demo/cap4.jpg)
+![ver tareas](./public/demo/cap4.jpg)
 
 # vista usuario
 
-![tarea con opciones](./frontend/public/demo/cap5.jpg)
+![tarea con opciones](./public/demo/cap5.jpg)
