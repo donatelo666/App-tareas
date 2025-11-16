@@ -58,7 +58,7 @@ export const eliminarUsuario = async (req, res) => {
 export const verTareas = async (req, res) => {
   try {
     const [rows] = await conexion.query(
-      "SELECT id, titulo, descripcion, fecha_limite, completada, prioridad FROM tareas"
+      "SELECT id, titulo, descripcion, fecha_limite, prioridad FROM tareas"
     );
     res.json(rows);
   } catch (error) {
@@ -107,5 +107,27 @@ export const eliminarTarea = async (req, res) => {
     res.json({ mensaje: "Tarea eliminada correctamente" });
   } catch (err) {
     res.status(500).json({ error: err.message });
+  }
+};
+
+// GET /api/admin/tareas/metricas
+export const obtenerMetricas = async (req, res) => {
+  try {
+    const [rows] = await conexion.query(`
+      SELECT 
+        COUNT(*) AS total,
+        SUM(completada = 1) AS completadas,
+        SUM(completada = 0) AS pendientes,
+        SUM(prioridad = 'alta') AS alta,
+        SUM(prioridad = 'media') AS media,
+        SUM(prioridad = 'baja') AS baja,
+        SUM(fecha_limite < CURDATE() AND completada = 0) AS vencidas,
+        SUM(fecha_limite >= CURDATE() AND fecha_limite <= DATE_ADD(CURDATE(), INTERVAL 7 DAY) AND completada = 0) AS proximas
+      FROM tareas
+    `);
+    res.json(rows[0]);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error al obtener métricas" });
   }
 };

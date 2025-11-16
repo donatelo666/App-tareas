@@ -1,6 +1,9 @@
 //rutas de las tareas con express, verificar token
 import express from "express";
-import { verUsuarios } from "../controllers/admincontroller.js";
+import {
+  obtenerMetricas,
+  verUsuarios,
+} from "../controllers/admincontroller.js";
 import {
   editarUsuario,
   eliminarUsuario,
@@ -18,5 +21,6 @@ router.delete("/admin/usuarios/:id", verificarToken, isAdmin, eliminarUsuario);
 router.get("/admin/tareas", verificarToken, isAdmin, verTareas);
 router.put("/admin/tareas/:id", verificarToken, isAdmin, editarTarea);
 router.delete("/admin/tareas/:id", verificarToken, isAdmin, eliminarTarea);
+router.get("/admin/tareas/metricas", verificarToken, isAdmin, obtenerMetricas);
 
 export default router;

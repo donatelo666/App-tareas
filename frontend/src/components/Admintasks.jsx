@@ -10,6 +10,8 @@ export default function AdminTasks() {
   const [error, setError] = useState(null);
   const [taskEditando, setTaskEditando] = useState(null);
   const formRef = useRef(null);
+  const [searchTerm, setSearchTerm] = useState("");
+
   useEffect(() => {
     const token = localStorage.getItem("token");
 
@@ -101,27 +103,48 @@ export default function AdminTasks() {
       formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 100);
   };
-  console.log("Estado tasks:", tasks);
+
+  const filteredTasks = tasks.filter((t) => {
+    const term = searchTerm.toLowerCase();
+    return (
+      t.titulo.toLowerCase().includes(term) ||
+      t.descripcion.toLowerCase().includes(term) ||
+      (t.fecha_limite && t.fecha_limite.toLowerCase().includes(term)) ||
+      (t.prioridad && t.prioridad.toLowerCase().includes(term))
+    );
+  });
 
   return (
     <div className="tareas-container">
       <h2>Tareas registradas</h2>
+      <div className="contenedor-search">
+        <input
+          type="text"
+          placeholder="Buscar por titulo, descripcion, fecha o prioridad..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="search-input"
+        />
+      </div>
+
       <table className="tareas-table">
         <thead>
           <tr>
             <th>ID</th>
             <th>Título</th>
             <th>Descripción</th>
+            <th>Prioridad</th>
             <th>Fecha limite</th>
             <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
-          {tasks.map((t) => (
+          {filteredTasks.map((t) => (
             <tr key={t.id}>
               <td>{t.id}</td>
               <td>{t.titulo}</td>
               <td>{t.descripcion}</td>
+              <td>{t.prioridad}</td>
               <td>{t.fecha_limite.split("T")[0]}</td>
 
               <td>

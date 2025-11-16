@@ -37,11 +37,24 @@ export default function Navbar() {
 
           {/* Mostrar solo si el usuario es admin */}
           {user?.rol === "admin" && (
-            <Link to="/admin/usuarios">Ver Usuarios</Link>
+            <Link to="/admin/dashboard" className="nav-link">
+              Metricas
+            </Link>
           )}
 
           {/* Mostrar solo si el usuario es admin */}
-          {user?.rol === "admin" && <Link to="/admin/tareas">Ver Tareas</Link>}
+          {user?.rol === "admin" && (
+            <Link to="/admin/usuarios" className="nav-link">
+              Ver Usuarios
+            </Link>
+          )}
+
+          {/* Mostrar solo si el usuario es admin */}
+          {user?.rol === "admin" && (
+            <Link to="/admin/tareas" className="nav-link">
+              Ver Tareas
+            </Link>
+          )}
           <button onClick={handleLogout} className="logout-button">
             Cerrar sesion
           </button>

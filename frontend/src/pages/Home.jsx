@@ -6,6 +6,12 @@ export default function Home() {
 
   return (
     <div className="home-container">
+      <img
+        src="/img/dragon2.jpg"
+        alt="dragon de la app"
+        className="home-image"
+      />
+
       <h1>Bienvenido al gestor de Tareas</h1>
       <p>
         Organiza tus pendientes, gestiona prioridades y mantente productivo.

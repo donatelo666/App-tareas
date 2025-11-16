@@ -110,3 +110,21 @@
   display: flex;
   gap: 0.5rem;
 }
+
+.search-input {
+  width: 70%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  border-radius: 5px;
+  border: 1px solid var(--input-border);
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.contenedor-search {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}

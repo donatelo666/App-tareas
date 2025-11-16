@@ -45,3 +45,9 @@
 .button-group button:hover {
   background-color: var(--button-hover);
 }
+.home-image {
+  margin-top: 20px;
+  border-radius: 6px;
+  width: 900px; /* ajusta tamaño */
+  height: auto;
+}

@@ -7,6 +7,7 @@ import Register from "./pages/Register";
 import Home from "./pages/Home";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Admindashboard from "./pages/Admindashboard";
 import Adminusers from "./components/Adminusers";
 import AdminTasks from "./components/Admintasks";
 
@@ -57,6 +58,8 @@ function App() {
               </RutaPrivada>
             }
           />
+          <Route path="/admin/dashboard" element={<Admindashboard />} />
+
           <Route path="/admin/usuarios" element={<Adminusers />} />
           <Route path="/admin/tareas" element={<AdminTasks />} />
 

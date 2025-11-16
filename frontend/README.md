@@ -1,25 +1,73 @@
-# React + Vite
+## Gestor de Tareas con Panel Admin
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación fullstack desarrollada con Express (backend) y Vite + React (frontend). Permite gestionar tareas, subtareas y usuarios (modo claro y oscuro), con un panel administrativo que incluye métricas, gráficos y tabla estilizada.
 
-Currently, two official plugins are available:
+## Tecnologías utilizadas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Backend: Node.js, Express, MySQL2
 
-## React Compiler
+Frontend: Vite, React, Chart.js
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Autenticación: JWT + middleware verificarToken y isAdmin, bcrypt
 
-## Expanding the ESLint configuration
+Estilos: CSS modular y responsive
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Otros: dotenv, cors
 
----
+## Instalación y ejecución
 
-## 🎨 Definición de Variables Globales
+git clone https://github.com/donatelo666/App-tareas.git
+cd APP-TAREAS
 
-En `index.css`, `App.css` o `styles/variables.css`, define:
+cd backend
+npm install
+npm run dev
+
+cd frontend
+npm install
+npm run dev
+
+## Variables de entorno
+
+Backend
+
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=tu_password
+DB_NAME=gestor_tareas
+JWT_SECRET=tu_secreto
+
+Frontend
+
+VITE_API_URL=http://localhost:3000/api
+
+## Rutas principales
+
+Autenticación
+
+POST /api/auth/login
+POST /api/auth/register
+
+Usuario
+
+GET /api/tareas
+POST /api/tareas
+PUT /api/tareas/:id
+DELETE /api/tareas/:id
+
+Admin
+
+GET /api/admin/usuarios
+PUT /api/admin/usuarios/:id
+DELETE /api/admin/usuarios/:id
+GET /api/admin/tareas
+PUT /api/admin/tareas/:id
+DELETE /api/admin/tareas/:id
+GET /api/admin/tareas/metricas
+
+## sistema modo oscuro y claro ejemplo
+
+En `App.css` define:
 
 ```css
 @import url("https://fonts.googleapis.com/css2?family=Lemon:wght@400;700&display=swap");
@@ -33,25 +81,6 @@ En `index.css`, `App.css` o `styles/variables.css`, define:
   --accent-gradient: linear-gradient(to right, #f0f0f0, #e8e8e8);
   --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
-  --card-bg: #f3f6f9;
-  --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  --button-bg: #0077cc;
-  --button-hover: #005fa3;
-
-  --navbar-bg: #a6c1ee;
-  --navbar-border: #8fb3e0;
-  --navbar-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  --navbar-title: #ffffff;
-
-  --focus-border: #a6c1ee;
-  --cancel-bg: #ccc;
-  --cancel-text: #333;
-  --cancel-hover-bg: #bbb;
-
-  --empty-bg: #f9f9f9;
-  --empty-text: #888;
-  --empty-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-}
 
 .dark-mode {
   --bg-color: #121212;
@@ -62,25 +91,7 @@ En `index.css`, `App.css` o `styles/variables.css`, define:
   --accent-gradient: linear-gradient(to right, #2a2a2a, #1e1e1e);
   --shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 
-  --card-bg: #1e1e2e;
-  --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  --button-bg: #4a90e2;
-  --button-hover: #357ab8;
 
-  --navbar-bg: #2a3550;
-  --navbar-border: #4a5e8a;
-  --navbar-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  --navbar-title: #f0f0f0;
-
-  --focus-border: #6f9dd9;
-  --cancel-bg: #444;
-  --cancel-text: #ddd;
-  --cancel-hover-bg: #555;
-
-  --empty-bg: #2a2a3a;
-  --empty-text: #aaa;
-  --empty-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-}
 ---
 activa el cambio de modo en app.jsx
 
@@ -100,3 +111,33 @@ para el cambio de modo
 }
 
 ```
+
+## Funcionalidades del panel admin
+
+Ver usuarios y tareas
+Editar/eliminar usuarios y tareas
+Métricas de tareas (totales, completadas, pendientes, vencidas, próximas)
+Gráficos con Chart.js
+Tabla estilizada y cards centrados
+
+## capturas
+
+# Home
+
+![Home](./frontend/public/demo/cap1.jpg)
+
+# dashboard y crear
+
+![dashboard usuario](./frontend/public/demo/cap2.jpg)
+
+# Gráficos
+
+![Gráficos](./frontend/public/demo/cap3.jpg)
+
+# panel admin
+
+![ver tareas](./frontend/public/demo/cap4.jpg)
+
+# vista usuario
+
+![tarea con opciones](./frontend/public/demo/cap5.jpg)
