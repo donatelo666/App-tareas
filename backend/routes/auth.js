@@ -1,4 +1,4 @@
-//rutas de registro y login
+//rutas de registro y login, express , controlador y router
 import express from "express";
 import { register, login } from "../controllers/authcontroller.js";
 

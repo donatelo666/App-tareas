@@ -4,7 +4,7 @@ import conexion from "../config/database.js";
 //consulta de tareas por fecha y mas
 export const obtenerTareas = async (req, res) => {
   try {
-    const userId = req.user.id; // viene del token
+    const userId = req.user.id; // viene del token y login
     const [tareas] = await conexion.query(
       `SELECT id, titulo, descripcion, prioridad, fecha_limite, completada
        FROM tareas
@@ -21,7 +21,7 @@ export const obtenerTareas = async (req, res) => {
 
 //crear tarea con query
 export const crearTarea = async (req, res) => {
-  const userId = req.user.id; // viene del token
+  const userId = req.user.id; // viene del token y login
 
   const { titulo, descripcion, prioridad, fecha_limite } = req.body;
 
@@ -61,7 +61,7 @@ export const actualizarTarea = async (req, res) => {
 
   if (!titulo) {
     return res.status(400).json({ error: "Título es obligatorio" });
-  }
+  } //titulo
 
   if (fecha_limite < hoyStr) {
     return res
@@ -92,7 +92,7 @@ export const eliminarTarea = async (req, res) => {
   const userId = req.user.id; // viene del token
 
   try {
-    //consulta con query del id con usuario_id correspondiente
+    //consulta  query del id(tarea)con usuario_id correspondiente
     const [result] = await conexion.query(
       "DELETE FROM tareas WHERE id=? AND usuario_id=?",
       [id, userId]

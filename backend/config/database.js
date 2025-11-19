@@ -1,4 +1,4 @@
-// database , mysql , dotenv
+// database , mysql ,  uso dotenv
 import mysql from "mysql2/promise";
 import dotenv from "dotenv";
 dotenv.config();
@@ -9,6 +9,8 @@ const conexion = mysql.createPool({
   password: process.env.password,
   database: process.env.database,
 });
+
+//conexion con console log y exportacion
 conexion
   .getConnection()
   .then(() => console.log("✅ Conexión a MySQL exitosa"))

@@ -1,4 +1,4 @@
-// is-admin.js middleware
+// is-admin.js middleware verificar si el usuario es admin
 export function isAdmin(req, res, next) {
   if (!req.user) {
     return res.status(401).json({ message: "Usuario no autenticado" });

@@ -1,6 +1,7 @@
 // token con jwt
 import jwt from "jsonwebtoken";
 
+//exporta middleware
 export const verificarToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (!authHeader) {
@@ -10,7 +11,7 @@ export const verificarToken = (req, res, next) => {
 
   const token = authHeader.split(" ")[1];
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET); //uso de la clave en .env
 
     req.user = decoded;
     // decoded contiene { id, nombre, email, rol }

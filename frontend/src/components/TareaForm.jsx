@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 //uso de .env
 const API_URL = import.meta.env.VITE_API_URL;
 
-//formulario con referencia de salto , definicionde tareas y edicion
+//formulario con referencia de salto , creacion de tareas y edicion
 const TareaForm = forwardRef(
   ({ fetchTareas, tareaEditando, setTareaEditando, setBusqueda }, ref) => {
     //estados de campos en vacio y media
@@ -22,6 +22,7 @@ const TareaForm = forwardRef(
         return false;
       }
 
+      //validacion
       if (fecha_limite) {
         const hoyStr = new Date().toLocaleDateString("en-CA"); // "YYYY-MM-DD" local
         if (fecha_limite < hoyStr) {
@@ -36,15 +37,16 @@ const TareaForm = forwardRef(
     //pone el token
     const token = localStorage.getItem("token");
 
+    //edicion
     useEffect(() => {
       if (tareaEditando) {
-        // Cargar datos en el formulario si hay edicion
+        // Cargar datos en el formulario
         setTitulo(tareaEditando.titulo);
         setDescripcion(tareaEditando.descripcion);
         setPrioridad(tareaEditando.prioridad);
         setFechaLimite(tareaEditando.fecha_limite);
       } else {
-        // Limpiar formulario al cancelar edicion
+        // Limpiar formulario al cancelar
         setTitulo("");
         setDescripcion("");
         setPrioridad("media");
@@ -54,16 +56,17 @@ const TareaForm = forwardRef(
 
     const handleSubmit = async (e) => {
       e.preventDefault();
-      if (!validarFormulario()) return;
+      if (!validarFormulario()) return; //no escucha el submit sin validacion
 
       if (!token) {
         toast.error("No hay sesión iniciada, debes registrarte antes");
         return; //error ausencia de token
       }
 
+      //crear y editar tareas
       const url = tareaEditando
         ? `${API_URL}/tareas/${tareaEditando.id}`
-        : `${API_URL}/tareas`; //rutas de editar o crear
+        : `${API_URL}/tareas`;
 
       const method = tareaEditando ? "PUT" : "POST"; //selecciona
 
@@ -79,15 +82,15 @@ const TareaForm = forwardRef(
             descripcion,
             prioridad,
             fecha_limite,
-          }), //convierte a json
+          }), //convierte a json la info del formulario
         });
 
         if (!res.ok) {
           const data = await res.json();
           throw new Error(data.error || `Error ${res.status}`);
-        } //error por respuesta errada
+        } //error
 
-        //doble notificacion
+        //doble notificacion toastify
         toast.success(
           tareaEditando
             ? "Tarea actualizada con exito"
@@ -105,7 +108,7 @@ const TareaForm = forwardRef(
     };
 
     return (
-      //formulario con referencia, escucha de click, cambio de estado de valores
+      //formulario con referencia, escucha de submit, cambio de estado de valores
       //placeholder, campos requeridos y un select
       <form ref={ref} onSubmit={handleSubmit} className="tarea-form">
         <h1>Crear y editar tareas</h1>
@@ -143,10 +146,10 @@ const TareaForm = forwardRef(
 
         <button type="submit">
           {" "}
-          {/* doble boton dependiendo de clics de usuario*/}
+          {/* doble boton dependiendo de decision de usuario*/}
           {tareaEditando ? "Actualizar tarea" : "Crear tarea"}
         </button>
-
+        {/*se rendereiza para edicion */}
         {tareaEditando && (
           <button
             type="button"

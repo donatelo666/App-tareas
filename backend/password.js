@@ -1,4 +1,4 @@
-//crear contraseñas encriptadas
+//crear contraseñas encriptadas con bcrypt
 const bcrypt = require("bcrypt");
 
 async function hashPassword(password) {
@@ -7,7 +7,7 @@ async function hashPassword(password) {
   return hashedPassword;
 }
 
-// Ejemplo de uso
+// Ejemplo de uso llamando async
 (async () => {
   const plainPassword = "donnie";
   const hashed = await hashPassword(plainPassword);

@@ -15,7 +15,7 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setError("");
+    setError(""); //escucha el login
 
     try {
       const res = await fetch(`${API_URL}/auth/login`, {
@@ -30,8 +30,8 @@ const Login = () => {
         throw new Error("Error al iniciar sesión");
       }
 
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.user)); // aquí guardas el rol
+      localStorage.setItem("token", data.token); //guarda el token
+      localStorage.setItem("user", JSON.stringify(data.user)); //  guarda rol y mas datos de usuario
       toast.success("Sesión iniciada");
       navigate("/dashboard");
     } catch (err) {

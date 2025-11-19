@@ -1,19 +1,21 @@
+//importaciones efecto , estado , referencia y toastify de react
 import { useEffect, useState, useRef } from "react";
 import "../styles/admintasks.css";
 import { toast } from "react-toastify";
 
+//llamada a puerto en .env
 const API_URL = import.meta.env.VITE_API_URL;
 
 export default function AdminTasks() {
-  const [tasks, setTasks] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [taskEditando, setTaskEditando] = useState(null);
-  const formRef = useRef(null);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [tasks, setTasks] = useState([]); //estado de tareas
+  const [loading, setLoading] = useState(true); //estado cargando
+  const [error, setError] = useState(null); //estado error
+  const [taskEditando, setTaskEditando] = useState(null); //editar
+  const formRef = useRef(null); //referencia
+  const [searchTerm, setSearchTerm] = useState(""); //filtrar
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token"); //token en local storage
 
     fetch(`${API_URL}/admin/tareas`, {
       headers: { Authorization: `Bearer ${token}` },
@@ -22,7 +24,7 @@ export default function AdminTasks() {
         return res.json(); // aquí convertimos a JSON
       })
       .then((data) => {
-        setTasks(data);
+        setTasks(data); // datos de tareas desde mysql para renderizar
         setLoading(false);
       })
       .catch((err) => {
@@ -31,6 +33,7 @@ export default function AdminTasks() {
       });
   }, []);
 
+  //cargando
   if (loading) return <p>Cargando tareas...</p>;
   if (error) return <p style={{ color: "red" }}>{error}</p>;
 
@@ -39,6 +42,7 @@ export default function AdminTasks() {
       ({ closeToast }) => (
         <div>
           <p>¿Eliminar tarea?</p>
+          {/*boton de toastify con fetch y todo  */}
           <button
             onClick={async () => {
               try {
@@ -50,8 +54,9 @@ export default function AdminTasks() {
                   },
                 });
                 if (res.ok) {
-                  toast.success("Tarea eliminada correctamente");
-                  setTasks((prev) => prev.filter((t) => t.id !== id));
+                  toast.success("Tarea eliminada correctamente"); //elimina tarea despues de confirmar el
+                  //toastify
+                  setTasks((prev) => prev.filter((t) => t.id !== id)); //recargar tareas
                 } else {
                   const data = await res.json();
                   toast.error(data.error || "Error al eliminar tarea");
@@ -86,8 +91,8 @@ export default function AdminTasks() {
         toast.success("Tarea actualizada correctamente");
         setTasks((prev) =>
           prev.map((t) => (t.id === taskEditando.id ? taskEditando : t))
-        );
-        setTaskEditando(null);
+        ); //recarga tareas
+        setTaskEditando(null); //poner formulario vacio
       } else {
         const data = await res.json();
         toast.error(data.error || "Error al actualizar tarea");
@@ -102,7 +107,7 @@ export default function AdminTasks() {
     setTimeout(() => {
       formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 100);
-  };
+  }; //salto lento y suave a formulario con el uso de referencia
 
   const filteredTasks = tasks.filter((t) => {
     const term = searchTerm.toLowerCase();
@@ -112,8 +117,9 @@ export default function AdminTasks() {
       (t.fecha_limite && t.fecha_limite.toLowerCase().includes(term)) ||
       (t.prioridad && t.prioridad.toLowerCase().includes(term))
     );
-  });
+  }); // filtrados de tareas por 4 valores
 
+  //renderizacion
   return (
     <div className="tareas-container">
       <h2>Tareas registradas</h2>
@@ -139,6 +145,7 @@ export default function AdminTasks() {
           </tr>
         </thead>
         <tbody>
+          {/*itera por las tareas para renderizar la tabla  */}
           {filteredTasks.map((t) => (
             <tr key={t.id}>
               <td>{t.id}</td>
@@ -166,6 +173,7 @@ export default function AdminTasks() {
         </tbody>
       </table>
 
+      {/*si el usuario quiere editar , renderiza el formulario  */}
       {taskEditando && (
         <div ref={formRef} className="editar-tarea-form">
           <h3>Editar Tarea</h3>

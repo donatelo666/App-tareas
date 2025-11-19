@@ -1,18 +1,19 @@
 import { Link, useNavigate } from "react-router-dom";
-import "../styles/navbar.css";
+import "../styles/navbar.css"; //css
 import { toast } from "react-toastify";
 
 export default function Navbar() {
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token"); //define token
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/inicio");
     toast.success("Sesion cerrada");
-  };
+  }; //funcion cerrar sesion
 
-  const user = JSON.parse(localStorage.getItem("user")); //toda la info que llega del login
+  //se usa para mostrar o no botones del navbar (si hay token y si es admin o no )
+  const user = JSON.parse(localStorage.getItem("user")); // info  directo de mysql
 
   return (
     <nav className="navbar">
@@ -20,6 +21,7 @@ export default function Navbar() {
       <Link to="/" className="nav-link">
         Inicio
       </Link>
+      {/*muestra dashboard solo si hay token  */}
       {!token ? (
         <>
           <Link to="/login" className="nav-link">

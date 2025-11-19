@@ -15,14 +15,14 @@ export const register = async (req, res) => {
     );
 
     if (exist.length)
-      return res.status(400).json({ error: "Usuario ya existe" });
+      return res.status(400).json({ error: "Usuario ya existe" }); //error
 
-    const hash = await bcrypt.hash(password, 10);
+    const hash = await bcrypt.hash(password, 10); //encriptacion
 
     await conexion.query(
       "INSERT INTO usuarios (nombre, email, password) VALUES (?, ?, ?)",
       [nombre, email, hash]
-    );
+    ); //insercion
 
     res.status(201).json({ mensaje: "Usuario creado" });
   } catch (err) {
@@ -54,7 +54,7 @@ export const login = async (req, res) => {
     const token = jwt.sign(
       { id: user.id, nombre: user.nombre, email: user.email, rol: user.rol },
       process.env.JWT_SECRET,
-      { expiresIn: "1h" }
+      { expiresIn: "1h" } // 1hora
     );
 
     res.json({
@@ -64,7 +64,7 @@ export const login = async (req, res) => {
         nombre: user.nombre,
         email: user.email,
         rol: user.rol,
-      },
+      }, // user para usar en el frontend y otras rutas
     });
   } catch (err) {
     res.status(500).json({ error: err.message });

@@ -43,6 +43,7 @@ const TareaList = ({
 
   return (
     <div className="tarea-list">
+      {/*itera por tareas para listar */}
       {tareasFiltradas.length > 0 ? (
         tareasFiltradas.map((tarea) => (
           <TareaItem

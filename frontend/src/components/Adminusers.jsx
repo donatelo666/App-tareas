@@ -27,7 +27,7 @@ export default function AdminUsers() {
         return res.json();
       })
       .then((data) => {
-        setUsers(data);
+        setUsers(data); //informacion desde mysql
         setLoading(false);
       })
       .catch((err) => {
@@ -41,13 +41,13 @@ export default function AdminUsers() {
 
   const iniciarEdicion = (usuario) => {
     setUsuarioEditando(usuario);
-    // pequeño delay para asegurar que el formulario se renderice
+    // salto lento y suave a formulario usando referencia
     setTimeout(() => {
       formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 100);
   };
 
-  // Confirmación
+  // Confirmación toastify
   const confirmarEliminacion = (callback) => {
     toast(
       ({ closeToast }) => (
@@ -78,11 +78,11 @@ export default function AdminUsers() {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        });
+        }); //llama la confirmacion de toastify
 
         if (res.ok) {
-          toast.success("Usuario eliminado correctamente");
-          setUsers((prev) => prev.filter((u) => u.id !== id));
+          toast.success("Usuario eliminado correctamente"); // exito
+          setUsers((prev) => prev.filter((u) => u.id !== id)); //recargra tabla usuarios
         } else {
           const data = await res.json();
           toast.error(data.error || "Error al eliminar usuario");
@@ -109,10 +109,10 @@ export default function AdminUsers() {
       );
 
       if (res.ok) {
-        toast.success("Usuario actualizado correctamente");
+        toast.success("Usuario actualizado correctamente"); //toastify
         setUsers((prev) =>
           prev.map((u) => (u.id === usuarioEditando.id ? usuarioEditando : u))
-        );
+        ); //reacarga tabla usuarios
         setUsuarioEditando(null);
       } else {
         const data = await res.json();
@@ -137,6 +137,7 @@ export default function AdminUsers() {
           </tr>
         </thead>
         <tbody>
+          {/*itera por cada usuario para renderizar la tabla  */}
           {users.map((u) => (
             <tr key={u.id}>
               <td>{u.id}</td>
@@ -161,7 +162,7 @@ export default function AdminUsers() {
           ))}
         </tbody>
       </table>
-
+      {/*renderiza formulario para editar usuario */}
       {usuarioEditando && (
         <div className="editar-usuario-form" ref={formRef}>
           <h3>Editar Usuario</h3>

@@ -1,7 +1,7 @@
 //conexion a base de datos
 import conexion from "../config/database.js";
 
-//endpoint para listar usuarios
+//endpoint para listar usuarios , get
 export const verUsuarios = async (req, res) => {
   try {
     const [rows] = await conexion.query(
@@ -30,7 +30,7 @@ export const editarUsuario = async (req, res) => {
       return res.status(404).json({ error: "Usuario no encontrado" });
     }
 
-    res.json({ mensaje: "Usuario actualizado correctamente" });
+    res.json({ mensaje: "Usuario actualizado correctamente" }); // respuesta
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -110,9 +110,10 @@ export const eliminarTarea = async (req, res) => {
   }
 };
 
-// GET /api/admin/tareas/metricas
+// GET /admin/tareas/metricas visualizar
 export const obtenerMetricas = async (req, res) => {
   try {
+    //cuenta todas , cuenta vencidas y caulcula proximas
     const [rows] = await conexion.query(`
       SELECT 
         COUNT(*) AS total,

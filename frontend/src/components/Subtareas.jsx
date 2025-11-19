@@ -13,12 +13,12 @@ const Subtareas = ({ tareaId, token }) => {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await res.json();
-    setSubtareas(data);
+    setSubtareas(data); // info mysql
   };
 
   useEffect(() => {
     obtenerSubtareas();
-  }, [tareaId]);
+  }, [tareaId]); //renderiza subtareas
 
   const agregarSubtarea = async (e) => {
     e.preventDefault();
@@ -33,10 +33,11 @@ const Subtareas = ({ tareaId, token }) => {
       body: JSON.stringify({ titulo: nuevaSubtarea }),
     });
 
-    setNuevaSubtarea("");
-    obtenerSubtareas(); // ← ahora sí funciona correctamente
+    setNuevaSubtarea(""); //pone en vacio
+    obtenerSubtareas(); // recarga sub tareas
   };
 
+  //marcar subtareas
   const toggleSubtarea = async (id, estado) => {
     await fetch(`${API_URL}/subtareas/${id}`, {
       method: "PUT",
@@ -47,7 +48,7 @@ const Subtareas = ({ tareaId, token }) => {
       body: JSON.stringify({ completada: estado }),
     });
 
-    obtenerSubtareas(); // ← también recarga después de marcar
+    obtenerSubtareas(); // recarga después de marcar
   };
 
   return (
@@ -61,7 +62,7 @@ const Subtareas = ({ tareaId, token }) => {
         />
         <button type="submit">Agregar</button>
       </form>
-
+      {/*lista subtareas iterando con checkbox */}
       <ul className="lista-subtareas">
         {subtareas.map((sub) => (
           <li key={sub.id} className={sub.completada ? "completada" : ""}>

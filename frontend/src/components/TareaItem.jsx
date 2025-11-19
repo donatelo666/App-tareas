@@ -24,7 +24,7 @@ const TareaItem = ({ tarea, fetchTareas, setTareaEditando }) => {
       body: JSON.stringify({ completada: !tarea.completada }),
     });
     toast.success("Estado de tarea actualizado");
-    fetchTareas();
+    fetchTareas(); //recargar tareas
   };
 
   const confirmarEliminacion = async () => {
@@ -40,7 +40,7 @@ const TareaItem = ({ tarea, fetchTareas, setTareaEditando }) => {
   useEffect(() => {
     const timer = setTimeout(() => setVisible(true), 50);
     return () => clearTimeout(timer);
-  }, []);
+  }, []); //tiempo del modal de eliminacion
 
   return (
     <div
@@ -59,6 +59,7 @@ const TareaItem = ({ tarea, fetchTareas, setTareaEditando }) => {
         <p className="fecha-limite">
           Vence: {new Date(tarea.fecha_limite).toLocaleDateString()}
         </p>
+        {/*poner subatareas con token  */}
         <Subtareas tareaId={tarea.id} token={token} />
       </div>
       <div className="task-actions">
@@ -68,7 +69,7 @@ const TareaItem = ({ tarea, fetchTareas, setTareaEditando }) => {
         <button onClick={() => setTareaEditando(tarea)}>✏️ Editar</button>
         <button onClick={() => setMostrarModal(true)}>Eliminar</button>
       </div>
-
+      {/*modal de eliminacion */}
       {mostrarModal && (
         <div className="modal-overlay">
           <div className="modal">

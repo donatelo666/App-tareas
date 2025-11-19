@@ -1,4 +1,4 @@
-//rutas de las tareas con express, verificar token
+//importacion express, rutas de admin mas middlewares
 import express from "express";
 import {
   obtenerMetricas,
@@ -14,6 +14,7 @@ import { eliminarTarea } from "../controllers/admincontroller.js";
 import { verificarToken } from "../middleware/auth.js";
 import { isAdmin } from "../middleware/is-admin.js";
 
+//router mas funciones admin  y middlewares
 const router = express.Router();
 router.get("/admin/usuarios", verificarToken, isAdmin, verUsuarios);
 router.put("/admin/usuarios/:id", verificarToken, isAdmin, editarUsuario);

@@ -1,4 +1,4 @@
-//rutas de las tareas con express, verificar token
+//express, funciones tareas , controller , middleware y router
 import express from "express";
 import {
   obtenerTareas,

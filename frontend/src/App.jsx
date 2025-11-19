@@ -1,3 +1,4 @@
+//importaciones
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
@@ -18,14 +19,14 @@ const RutaPrivada = ({ children }) => {
 };
 
 function App() {
-  const [modoOscuro, setModoOscuro] = useState(false);
+  const [modoOscuro, setModoOscuro] = useState(false); //modo claro y oscuro con variables de css
 
   useEffect(() => {
     document.body.classList.toggle("dark-mode", modoOscuro);
-  }, [modoOscuro]);
+  }, [modoOscuro]); //activa modo oscuro
   return (
     <>
-      <ToastContainer
+      <ToastContainer // contenedor global de toastify
         position="top-center"
         autoClose={3000}
         hideProgressBar={false}

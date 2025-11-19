@@ -12,7 +12,7 @@ const Register = () => {
   const [error, setError] = useState("");
 
   const handleRegister = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); //escucha el boton
 
     setError("");
 
@@ -25,7 +25,7 @@ const Register = () => {
 
       const data = await res.json();
       if (!res.ok) {
-        toast.error("Error al registrar usuario sesión");
+        toast.error("Error al registrar usuario ");
         throw new Error("Error al registrar");
       }
 

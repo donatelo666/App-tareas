@@ -14,7 +14,7 @@ export default function AdminDashboard() {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     })
       .then((res) => res.json())
-      .then((data) => setMetrics(data));
+      .then((data) => setMetrics(data)); //info mysql para renderizar graficos
   }, []);
 
   if (!metrics) return <p>Cargando métricas...</p>;
@@ -49,6 +49,7 @@ export default function AdminDashboard() {
       },
     ],
   };
+  //editar graficos de chart
   const options = {
     plugins: {
       legend: {
@@ -89,7 +90,7 @@ export default function AdminDashboard() {
         <div className="card">Completadas: {metrics.completadas}</div>
         <div className="card">Pendientes: {metrics.pendientes}</div>
       </div>
-
+      {/*renderiza graficos con la respuesta data del backend */}
       <div className="charts">
         <div className="chart">
           <h2>Estado de tareas</h2>

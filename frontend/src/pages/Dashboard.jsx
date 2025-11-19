@@ -7,11 +7,11 @@ import "../styles/dashboard.css";
 const API_URL = import.meta.env.VITE_API_URL;
 
 const Dashboard = () => {
-  const formRef = useRef();
+  const formRef = useRef(); //referencia
   const [tareas, setTareas] = useState([]);
-  const [tareaEditando, setTareaEditando] = useState(null);
-  const token = localStorage.getItem("token");
-  const [busqueda, setBusqueda] = useState("");
+  const [tareaEditando, setTareaEditando] = useState(null); //edicion
+  const token = localStorage.getItem("token"); //token
+  const [busqueda, setBusqueda] = useState(""); //busqueda
   //filtros multiples
   const [filtroPrioridad, setFiltroPrioridad] = useState("todas");
   const [filtroEstado, setFiltroEstado] = useState("todas");
@@ -22,7 +22,7 @@ const Dashboard = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
-      setTareas(data);
+      setTareas(data); //info tareas de mysql
     } catch (err) {
       console.error("Error al obtener tareas:", err);
     }
@@ -34,7 +34,7 @@ const Dashboard = () => {
     } else {
       console.warn("No hay token. Redirigiendo o esperando login...");
     }
-  }, []);
+  }, []); //con token renderiza
 
   return (
     <div className="dashboard-container">
@@ -85,7 +85,7 @@ const Dashboard = () => {
         fetchTareas={fetchTareas}
         setTareaEditando={(tarea) => {
           setTareaEditando(tarea);
-          formRef.current?.scrollIntoView({ behavior: "smooth" });
+          formRef.current?.scrollIntoView({ behavior: "smooth" }); //referencia para salto suave
         }}
         busqueda={busqueda}
         filtroPrioridad={filtroPrioridad}
